@@ -28,3 +28,15 @@
 
 (define (maybe-just-value maybe)
   (maybe-type-just-value maybe))
+
+(define-syntax maybe/do
+  (syntax-rules (<-)
+    ((_ (val1 <- maybe1) exp1 exp2 ...)
+     (maybe-bind maybe1
+                 (λ (val1) (maybe/do exp1 exp2 ...))))
+    ((_ exp1 exp2 exp3 ...)
+     (maybe-bind exp1 (λ (_) (maybe/do exp2 exp3 ...)))
+     )
+    ((_ exp1) exp1
+              )
+    ))

@@ -38,4 +38,16 @@
 (define (result-error-val result)
   (result-type-error-message result))
 
+(define-syntax result/do
+  (syntax-rules (<-)
+    ((_ (val1 <- result1) exp1 exp2 ...)
+     (result-bind result1
+                  (λ (val1) (result/do exp1 exp2 ...))))
+    ((_ exp1 exp2 exp3 ...)
+     (result-bind exp1 (λ (_) (result/do exp2 exp3 ...)))
+     )
+    ((_ exp1) exp1
+              )
+    ))
+
 (provide (all-defined-out))
