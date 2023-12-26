@@ -3,7 +3,7 @@
                     racket/base]]
 
 @title{monadicrkt}
-@author{hdbian}
+@author{dbian}
 
 @defmodule[monadicrkt]
 
